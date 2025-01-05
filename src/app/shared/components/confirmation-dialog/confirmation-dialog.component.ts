@@ -6,7 +6,6 @@ import { MaterialModule } from '../../material/material.module';
 @Component({
   selector: 'app-confirmation-dialog',
   templateUrl: './confirmation-dialog.component.html',
-  styleUrls: ['./confirmation-dialog.component.css'],
   imports: [CommonModule,
     MaterialModule, MatDialogModule]
 })

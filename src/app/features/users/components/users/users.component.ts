@@ -26,7 +26,6 @@ import { EmptyStateComponent } from '../../../../shared/components/empty-state/e
     EmptyStateComponent
   ],
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
 })
 export class UsersComponent {
   users$: Observable<User[]>;

@@ -12,7 +12,6 @@ import { MaterialModule } from '../../material/material.module';
     MatSortModule
   ],
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.css']
 })
 export class TableComponent<T> {
   @Input() columns: { displayedName: string, key: string }[] = [];

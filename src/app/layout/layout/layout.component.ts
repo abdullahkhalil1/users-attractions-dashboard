@@ -56,15 +56,18 @@ export class LayoutComponent implements OnInit {
   }
 
   logout() {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      width: '30%',
-      data: { message: `Are you sure you want to logout?` }
-    });
+    this.isMobile$.pipe(take(1)).subscribe(isMobile => {
+      const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+        width: isMobile ? '90vw' : '30%',
+        data: { message: `Are you sure you want to logout?` },
+        panelClass: isMobile ? 'full-width-dialog' : ''
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.authService.logout();
-      }
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.authService.logout();
+        }
+      });
     });
   }
 }

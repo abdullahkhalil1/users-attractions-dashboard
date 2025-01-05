@@ -16,8 +16,7 @@ import { environment } from '../../../../env';
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
-    // private readonly BASE_URL = 'https://melivecode.com/api';
-    private readonly BASE_URL = environment.BASE_URL; // Use the BASE_URL from environment
+    private readonly BASE_URL = environment.BASE_URL;
 
     constructor(
         private router: Router,
@@ -86,6 +85,8 @@ export class ApiInterceptor implements HttpInterceptor {
                             break;
                         case 403:
                             errorMessage = 'Access forbidden';
+                            sessionStorage.clear();
+                            this.router.navigate(['/login']);
                             break;
                         case 404:
                             errorMessage = 'Resource not found';

@@ -8,7 +8,6 @@ import { User } from '../../../../core/models/user.model';
 @Component({
   selector: 'app-update-user-dialog',
   templateUrl: './update-user-dialog.component.html',
-  styleUrls: ['./update-user-dialog.component.css'],
   imports: [CommonModule, ReactiveFormsModule, MaterialModule]
 })
 export class UpdateUserDialogComponent implements OnInit {

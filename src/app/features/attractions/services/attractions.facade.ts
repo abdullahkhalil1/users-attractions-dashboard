@@ -14,7 +14,7 @@ export class AttractionsFacade {
     private pageSubject = new BehaviorSubject<number>(1);
     private perPageSubject = new BehaviorSubject<number>(4);
     private sortColumnSubject = new BehaviorSubject<string>('name');
-    private sortOrderSubject = new BehaviorSubject<string>('asc');
+    private sortOrderSubject = new BehaviorSubject<string>('desc');
 
     attractions$ = this.attractionsSubject.asObservable();
     loading$ = this.loadingSubject.asObservable();

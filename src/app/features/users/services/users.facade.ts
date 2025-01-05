@@ -14,7 +14,7 @@ export class UsersFacade {
     private pageSubject = new BehaviorSubject<number>(1);
     private perPageSubject = new BehaviorSubject<number>(5);
     private sortColumnSubject = new BehaviorSubject<string>('id');
-    private sortOrderSubject = new BehaviorSubject<string>('asc');
+    private sortOrderSubject = new BehaviorSubject<string>('desc');
 
     users$ = this.usersSubject.asObservable();
     loading$ = this.loadingSubject.asObservable();

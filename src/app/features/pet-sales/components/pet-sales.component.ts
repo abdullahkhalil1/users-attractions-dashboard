@@ -14,7 +14,6 @@ import { BreakpointService } from '../../../shared/services/break-point.service'
 @Component({
   selector: 'app-pet-sales',
   templateUrl: './pet-sales.component.html',
-  styleUrls: ['./pet-sales.component.css'],
   imports: [CommonModule, BaseChartDirective, MaterialModule, TableComponent],
 
 })

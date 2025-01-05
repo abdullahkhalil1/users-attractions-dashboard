@@ -1,4 +1,4 @@
-<mat-table [dataSource]="dataSource" matSort matSortDirection="asc" [matSortActive]="defaultSortColumn"
+<mat-table [dataSource]="dataSource" matSort matSortDirection="desc" [matSortActive]="defaultSortColumn"
     matSortDisableClear (matSortChange)="onSortChange($event)">
     <ng-container *ngFor="let column of columns" [matColumnDef]="column.key">
         <mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="disableSorting" class="text-brandPrimary">

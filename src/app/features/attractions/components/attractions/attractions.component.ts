@@ -21,7 +21,6 @@ import { EmptyStateComponent } from '../../../../shared/components/empty-state/e
 @Component({
   selector: 'app-attractions',
   templateUrl: './attractions.component.html',
-  styleUrls: ['./attractions.component.css'],
   imports: [
     CommonModule,
     MaterialModule,
@@ -43,7 +42,7 @@ export class AttractionsComponent {
   searchQuery: string = '';
   sortField: string = 'name';
   isGridView: boolean = true;
-  sortOrder: 'asc' | 'desc' = 'asc';
+  sortOrder: 'asc' | 'desc' = 'desc';
 
   columns: { displayedName: string, key: string }[] = [
     { displayedName: 'ID', key: 'id' },

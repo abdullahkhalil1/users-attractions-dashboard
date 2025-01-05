@@ -5,7 +5,6 @@ import { MaterialModule } from '../../material/material.module';
 @Component({
   selector: 'app-empty-state',
   templateUrl: './empty-state.component.html',
-  styleUrls: ['./empty-state.component.css'],
   imports: [CommonModule, MaterialModule]
 })
 export class EmptyStateComponent {

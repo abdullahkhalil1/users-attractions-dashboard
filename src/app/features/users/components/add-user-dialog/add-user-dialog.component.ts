@@ -7,7 +7,6 @@ import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-add-user-dialog',
   templateUrl: './add-user-dialog.component.html',
-  styleUrls: ['./add-user-dialog.component.css'],
   imports: [CommonModule,
     ReactiveFormsModule,
     MaterialModule]

@@ -7,7 +7,6 @@ import { MaterialModule } from '../../../../shared/material/material.module';
 @Component({
   selector: 'app-update-attraction-dialog',
   templateUrl: './update-attraction-dialog.component.html',
-  styleUrls: ['./update-attraction-dialog.component.css'],
   imports: [CommonModule,
     ReactiveFormsModule,
     MaterialModule]
