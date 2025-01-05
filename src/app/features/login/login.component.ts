@@ -34,7 +34,7 @@ export class LoginComponent {
           sessionStorage.setItem('expiresIn', expirationTime.toString());
         },
         error: (error) => {
-          console.error('Login failed', error);
+          this.loading = false;
         }
       });
     }
