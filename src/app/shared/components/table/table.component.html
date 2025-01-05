@@ -1,0 +1,45 @@
+<mat-table [dataSource]="dataSource" matSort matSortDirection="asc" [matSortActive]="defaultSortColumn"
+    matSortDisableClear (matSortChange)="onSortChange($event)">
+    <ng-container *ngFor="let column of columns" [matColumnDef]="column.key">
+        <mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="disableSorting" class="text-brandPrimary">
+            {{ column.displayedName }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <ng-container *ngIf="typeof element[column.key] === 'string'; else noTooltip">
+                <span [matTooltip]="element[column.key]" matTooltipPosition="above"
+                    *ngIf="element[column.key]?.length > 75">
+                    {{ element[column.key] | slice:0:75 }}...
+                </span>
+                <span *ngIf="element[column.key]?.length <= 75">
+                    {{ element[column.key] }}
+                </span>
+            </ng-container>
+            <ng-template #noTooltip>
+                {{ element[column.key] }}
+            </ng-template>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef class="justify-end text-brandPrimary"> Actions </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="justify-end">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="onEdit(element)">
+                    <mat-icon>edit</mat-icon>
+                    <span>Edit</span>
+                </button>
+                <button mat-menu-item (click)="onDelete(element)">
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete</span>
+                </button>
+            </mat-menu>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row class="!bg-gray-100 !rounded-t-lg" *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"
+        class="hover:bg-gray-100 transition-colors duration-200 cursor-pointer"></mat-row>
+</mat-table>

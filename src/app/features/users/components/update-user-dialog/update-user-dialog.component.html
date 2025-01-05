@@ -1,0 +1,32 @@
+<div class="px-4 pt-8 pb-4 flex flex-col h-full">
+    <div class="flex items-center mb-4 text-brandPrimary">
+        <mat-icon class="mr-2">edit</mat-icon>
+        <span class="text-lg font-medium">Update User</span>
+    </div>
+    <form [formGroup]="updateUserForm" class="flex flex-col h-full justify-between" (ngSubmit)="onSubmit()">
+        <div class="flex flex-col gap-3">
+            <mat-form-field appearance="fill" class="w-full">
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="fname">
+                <mat-error *ngIf="updateUserForm.get('fname')?.hasError('required')">First Name is required</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="w-full">
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="lname">
+                <mat-error *ngIf="updateUserForm.get('lname')?.hasError('required')">Last Name is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="w-full">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email">
+                <mat-error *ngIf="updateUserForm.get('email')?.hasError('required')">Email is required</mat-error>
+                <mat-error *ngIf="updateUserForm.get('email')?.hasError('email')">Invalid email address</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="flex w-full items-center gap-3">
+            <button class="w-full" mat-button type="button" (click)="onCancel()">Cancel</button>
+            <button class="w-full" mat-raised-button color="primary" [disabled]="updateUserForm.invalid"
+                type="submit">Update User</button>
+        </div>
+    </form>
+</div>

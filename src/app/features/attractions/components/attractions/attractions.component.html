@@ -1,0 +1,96 @@
+<div class="p-6 flex flex-col justify-between">
+    <div class="flex items-center gap-6">
+        <p class="text-[36px] font-medium text-brandPrimary">Locations</p>
+        <mat-slide-toggle color="primary" (change)="toggleViewMode()">Table
+            View</mat-slide-toggle>
+    </div>
+    <div [ngClass]="{'w-full': isMobile$ | async}"
+        class="flex flex-col items-center sm:flex-row justify-between mt-8 mb-4">
+        <div class="flex flex-col w-full sm:w-[80%] sm:flex-row gap-2 items-center sm:gap-8">
+            <mat-form-field [ngClass]="{'w-full' : isMobile$ | async}" appearance="fill">
+                <mat-label>Search</mat-label>
+                <input matInput [ngModel]="searchQuery" appDebounce [debounceTime]="700"
+                    (debouncedValue)="onSearch($event)">
+                <mat-icon matPrefix>search</mat-icon>
+            </mat-form-field>
+
+            <ng-container *ngIf="isGridView">
+                <div class="flex w-full items-center">
+                    <mat-form-field [ngClass]="{'w-full' : isMobile$ | async}" appearance="fill">
+                        <mat-label>Sort by</mat-label>
+                        <mat-select [(ngModel)]="sortField" (selectionChange)="onSortFieldChange($event.value)">
+                            <mat-option value="name">Name</mat-option>
+                            <mat-option value="latitude">Latitude</mat-option>
+                            <mat-option value="longitude">Longitude</mat-option>
+                            <mat-option value="detail">Details</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <button mat-icon-button class="flex items-center" (click)="toggleSortOrder()">
+                        <mat-icon>{{ sortOrder === 'asc' ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+                    </button>
+                </div>
+            </ng-container>
+        </div>
+        <button mat-raised-button color="primary" [ngClass]="{'w-full' : isMobile$ | async}"
+            (click)="onAddAttraction()">Add
+            Locations</button>
+    </div>
+
+
+    <div *ngIf="loading$ | async" class="flex justify-center items-center h-64">
+        <mat-spinner diameter="60"></mat-spinner>
+    </div>
+
+    <ng-container *ngIf="!(loading$ | async)">
+        <ng-container *ngIf="(attractions$ | async)?.length ?? 0 > 0; else emptyState">
+            <ng-container *ngIf="isGridView; else tableView">
+                <mat-grid-list [cols]="cols$ | async" gutterSize="16px" rowHeight="400px">
+                    <mat-grid-tile *ngFor="let attraction of attractions$ | async">
+                        <mat-card class="h-full w-full flex flex-col !shadow-none !rounded-2xl justify-between">
+                            <div class="flex flex-col !rounded-2xl">
+                                <img mat-card-image class="h-[150px] !rounded-t-lg" [src]="attraction.coverimage"
+                                    alt="{{ attraction.name }}">
+                                <mat-card-content class="mt-2">
+                                    <div class="flex flex-col gap-2">
+                                        <div class="flex flex-col">
+                                            <span class="text-brandPrimary text-lg font-semibold">{{ attraction.name
+                                                }}</span>
+                                            <span class="text-xs text-gray-500 font-medium">lat: {{ attraction.latitude
+                                                }},
+                                                lng: {{
+                                                attraction.longitude }}</span>
+                                        </div>
+                                        <span class="text-xs">{{ attraction.detail }}</span>
+                                    </div>
+                                </mat-card-content>
+                            </div>
+                            <mat-card-actions>
+                                <button mat-button color="primary" (click)="onUpdateAttraction(attraction)">
+                                    <mat-icon>edit</mat-icon>
+                                    Edit
+                                </button>
+                                <button mat-button class="!text-gray-400" (click)="onDeleteAttraction(attraction)">
+                                    <mat-icon>delete</mat-icon>
+                                    Delete
+                                </button>
+                            </mat-card-actions>
+                        </mat-card>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </ng-container>
+        </ng-container>
+
+        <ng-template #tableView>
+            <app-table (edit)="onUpdateAttraction($event)" (delete)="onDeleteAttraction($event)"
+                (sortChange)="onSortChange($event)" [hasActions]="true" [columns]="columns"
+                [dataSource]="(attractions$ | async) ?? []"></app-table>
+        </ng-template>
+        <ng-template #emptyState>
+            <app-empty-state message="No attractions available"></app-empty-state>
+        </ng-template>
+    </ng-container>
+
+    <mat-paginator class="mt-6 !rounded-lg" [length]="(totalLength$ | async) ?? 0" [pageSize]="(perPage$ | async) ?? 4"
+        [pageIndex]="((page$ | async) ?? 1) - 1" [pageSizeOptions]="[4, 8, 12]"
+        (page)="onPageChange($event)"></mat-paginator>
+</div>

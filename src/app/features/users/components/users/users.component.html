@@ -1,0 +1,30 @@
+<div class="flex flex-col justify-between mb-4 p-6">
+    <p class="text-[36px] font-medium text-brandPrimary">Users</p>
+    <div class="flex items-center gap-4 justify-between mt-8">
+        <mat-form-field appearance="fill">
+            <mat-label>Search</mat-label>
+            <input matInput [ngModel]="searchQuery" appDebounce [debounceTime]="700"
+                (debouncedValue)="onSearch($event)">
+            <mat-icon matPrefix>search</mat-icon>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="onAddUser()">Add User</button>
+    </div>
+    <ng-container *ngIf="loading$ | async">
+        <div class="flex justify-center items-center h-64">
+            <mat-spinner diameter="60"></mat-spinner>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="!(loading$ | async)">
+        <ng-container *ngIf="(users$ | async)?.length ?? 0 > 0; else emptyState">
+            <app-table [hasActions]="true" [columns]="columns" [dataSource]="(users$ | async) ?? []"
+                (edit)="onUpdateUser($event)" (delete)="onDeleteUser($event)" (sortChange)="onSortChange($event)">
+            </app-table>
+            <mat-paginator [length]="(totalLength$ | async) ?? 0" [pageSize]="(perPage$ | async) ?? 5"
+                [pageIndex]="((page$ | async) ?? 1) - 1" [pageSizeOptions]="[5, 10, 25, 100]"
+                (page)="onPageChange($event)"></mat-paginator>
+        </ng-container>
+        <ng-template #emptyState>
+            <app-empty-state message="No users available"></app-empty-state>
+        </ng-template>
+    </ng-container>
+</div>

@@ -1,0 +1,41 @@
+<mat-sidenav-container class="h-[100%]">
+    <mat-sidenav #sidenav [mode]="(isMobile$ | async) ? 'over' : 'side'" [opened]="!(isMobile$ | async)"
+        [ngClass]="{ '!w-[15%]': !(isMobile$ | async) }" class="flex flex-col h-full !text-white !bg-brandPrimary">
+        <div class="h-full flex flex-col p-3 justify-between">
+            <div>
+                <ng-container *ngIf="!(isMobile$ | async)">
+                    <p class="px-3 pt-3 text-lg font-medium">Dashboard</p>
+                </ng-container>
+                <mat-nav-list class="p-3">
+                    <ng-container *ngFor="let link of links">
+                        <div class="flex flex-col">
+                            <a mat-list-item [routerLink]="link.path" (click)="handleNavClick(link.path, sidenav)"
+                                routerLinkActive="active-link">
+                                <div
+                                    [ngClass]="{ 'flex': true, 'text-white': !isActive(link.path), 'items-center': true, 'gap-2': true, 'text-brandPrimary': isActive(link.path) }">
+                                    <mat-icon>{{link.icon}}</mat-icon>
+                                    <span class="ml-2">{{link.label}}</span>
+                                </div>
+                            </a>
+                        </div>
+                    </ng-container>
+                </mat-nav-list>
+            </div>
+            <div class="p-3 border-t">
+                <button mat-button class="w-full !text-white" (click)="logout()">
+                    <mat-icon>logout</mat-icon>
+                    Logout
+                </button>
+            </div>
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary" *ngIf="isMobile$ | async">
+            <button mat-icon-button class="!text-white" (click)="sidenav.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span>Dashboard</span>
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

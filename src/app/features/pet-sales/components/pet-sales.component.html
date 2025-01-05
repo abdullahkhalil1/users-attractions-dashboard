@@ -1,0 +1,25 @@
+<div class="flex flex-col justify-between mb-4 p-6">
+    <p class="text-[36px] font-medium text-brandPrimary">Pet Sales</p>
+    <div class="flex items-center gap-3 mt-8">
+        <label for="startDate">Select Date:</label>
+        <mat-form-field appearance="fill">
+            <mat-label>Select Date</mat-label>
+            <input matInput [matDatepicker]="picker" [value]="defaultDate" (dateChange)="onDateChange($event)">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="w-full h-full sm:h-[400px]  flex justify-center items-center border-b">
+        <div *ngIf="loading$ | async">
+            <mat-spinner diameter="60"></mat-spinner>
+        </div>
+        <canvas [height]="(isMobile$ | async) && '300'" *ngIf="!(loading$ | async)" baseChart [type]="'line'"
+            [datasets]="(chartData$ | async)?.datasets" [labels]="(chartData$ | async)?.labels"
+            [options]="chartOptions">
+        </canvas>
+    </div>
+    <div class="flex flex-col mt-6">
+        <p class="w-full flex justify-center text-[#666666] text-base font-bold">Daily Sales</p>
+        <app-table [columns]="columns" [disableSorting]="true" [dataSource]="(dailySales$ | async) ?? []"></app-table>
+    </div>
+</div>
