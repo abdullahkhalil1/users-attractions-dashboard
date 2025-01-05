@@ -1,4 +1,4 @@
 export const environment = {
-    production: false,
+    production: true,
     BASE_URL: 'https://melivecode.com/api',
 };
