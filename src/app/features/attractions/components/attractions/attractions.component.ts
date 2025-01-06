@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
@@ -30,7 +30,7 @@ import { EmptyStateComponent } from '../../../../shared/components/empty-state/e
     EmptyStateComponent
   ],
 })
-export class AttractionsComponent {
+export class AttractionsComponent implements OnInit {
   attractions$: Observable<Attraction[]>;
   loading$: Observable<boolean>;
   totalLength$: Observable<number>;
@@ -62,6 +62,10 @@ export class AttractionsComponent {
     this.page$ = this.attractionsFacade.page$;
     this.cols$ = this.breakpointService.getCols();
     this.isMobile$ = this.breakpointService.isMobile();
+  }
+
+  ngOnInit(): void {
+    this.attractionsFacade.loadAttractions()
   }
 
   onPageChange(event: PageEvent) {

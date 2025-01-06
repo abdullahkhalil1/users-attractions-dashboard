@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { UsersFacade } from '../../services/users.facade';
@@ -27,7 +27,7 @@ import { EmptyStateComponent } from '../../../../shared/components/empty-state/e
   ],
   templateUrl: './users.component.html',
 })
-export class UsersComponent {
+export class UsersComponent implements OnInit {
   users$: Observable<User[]>;
   loading$: Observable<boolean>;
   totalLength$: Observable<number>;
@@ -51,6 +51,10 @@ export class UsersComponent {
     this.perPage$ = this.usersFacade.perPage$;
     this.loading$ = this.usersFacade.loading$;
     this.page$ = this.usersFacade.page$;
+  }
+
+  ngOnInit(): void {
+    this.usersFacade.loadUsers();
   }
 
   onPageChange(event: PageEvent) {

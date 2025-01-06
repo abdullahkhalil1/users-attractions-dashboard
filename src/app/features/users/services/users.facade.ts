@@ -22,9 +22,7 @@ export class UsersFacade {
     page$ = this.pageSubject.asObservable();
     perPage$ = this.perPageSubject.asObservable();
 
-    constructor(private usersService: UsersService) {
-        this.loadUsers();
-    }
+    constructor(private usersService: UsersService) { }
 
     setSearch(search: string) {
         this.searchSubject.next(search);

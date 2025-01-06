@@ -22,9 +22,7 @@ export class AttractionsFacade {
     page$ = this.pageSubject.asObservable();
     perPage$ = this.perPageSubject.asObservable();
 
-    constructor(private attractionsService: AttractionsService) {
-        this.loadAttractions();
-    }
+    constructor(private attractionsService: AttractionsService) { }
 
     setSearch(search: string) {
         this.searchSubject.next(search);
