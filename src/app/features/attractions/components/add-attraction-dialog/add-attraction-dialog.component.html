@@ -90,7 +90,12 @@
                 </mat-error>
             </mat-form-field>
             <input type="file" (change)="onFileChange($event)">
-            <mat-error *ngIf="imageSizeError">{{ imageSizeError }}</mat-error>
+            <ng-container *ngIf="imageSizeError; else imageSizeHint">
+                <mat-error>{{ imageSizeError }}</mat-error>
+            </ng-container>
+            <ng-template #imageSizeHint>
+                <span class="text-sm text-gray-500 mt-2">Maximum cover image size is 1 MB.</span>
+            </ng-template>
             <div *ngIf="selectedImage">
                 <img [src]="selectedImage" alt="Selected Image" style="max-width: 100%; height: auto;">
             </div>

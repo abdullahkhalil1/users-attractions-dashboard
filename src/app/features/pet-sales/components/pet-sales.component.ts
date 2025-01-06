@@ -10,6 +10,7 @@ import { PetSalesFacade } from '../services/pet-sales.facade';
 import { MaterialModule } from '../../../shared/material/material.module';
 import { TableComponent } from '../../../shared/components/table/table.component';
 import { BreakpointService } from '../../../shared/services/break-point.service';
+import { ChartData, DailySale } from '../../../core/models/pet-sales.model';
 
 @Component({
   selector: 'app-pet-sales',
@@ -21,9 +22,10 @@ export class PetSalesComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
   isMobile$: Observable<boolean>;
-  chartData$: Observable<any>;
-  dailySales$: Observable<any>;
-  loading$: Observable<boolean>;
+  chartData$: Observable<ChartData>;
+  dailySales$: Observable<DailySale[]>;
+  chartDataLoading$: Observable<boolean>;
+  dailySalesLoading$: Observable<boolean>;
   defaultDate: string;
 
   chartData: ChartConfiguration<'line'>['data'] = {
@@ -92,7 +94,8 @@ export class PetSalesComponent implements OnInit {
   constructor(private petSalesFacade: PetSalesFacade, private breakpointService: BreakpointService) {
     this.chartData$ = this.petSalesFacade.chartData$;
     this.dailySales$ = this.petSalesFacade.dailySales$;
-    this.loading$ = this.petSalesFacade.loading$;
+    this.chartDataLoading$ = this.petSalesFacade.chartDataLoading$;
+    this.dailySalesLoading$ = this.petSalesFacade.dailySalesLoading$;
     const today = new Date();
     this.defaultDate = format(today, 'yyyy-MM-dd');
     this.isMobile$ = this.breakpointService.isMobile();

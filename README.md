@@ -71,6 +71,10 @@ The `features` folder contains the main features of the application, each featur
 
 - **login/**: Contains components, services, and other code related to the login functionality.
 - **users/**: Contains components, services, and other code related to user management.
+
+- **Note**: 
+ In the "Add User" API, I used a placeholder for the avatar to simplify testing. This is because the API provider has strict rules and limitations for uploaded images.
+
 - **attractions/**: Contains components, services, and other code related to attractions management.
 - **pet-sales/**: Contains components, services, and other code related to pet sales management.
 
